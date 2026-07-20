@@ -1,0 +1,21 @@
+# Logs
+*.log
+
+# Environment Variables
+.env
+
+# Python
+__pycache__/
+*.pyc
+
+# Ansible
+*.retry
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
