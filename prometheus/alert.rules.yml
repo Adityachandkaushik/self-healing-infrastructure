@@ -1,0 +1,11 @@
+groups:
+  - name: self-healing-alerts
+    rules:
+      - alert: NodeExporterDown
+        expr: up{job="node-exporter"} == 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Node Exporter Down"
+          description: "Node Exporter has been down for more than 30 seconds."
