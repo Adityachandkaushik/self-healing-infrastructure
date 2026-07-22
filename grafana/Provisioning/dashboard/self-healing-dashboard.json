@@ -1,0 +1,26 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "graphTooltip": 0,
+  "panels": [],
+  "schemaVersion": 39,
+  "style": "dark",
+  "tags": [
+    "self-healing",
+    "prometheus",
+    "grafana"
+  ],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-30m",
+    "to": "now"
+  },
+  "timezone": "",
+  "title": "Self-Healing Infrastructure Dashboard",
+  "uid": "self-healing-dashboard",
+  "version": 1
+}
