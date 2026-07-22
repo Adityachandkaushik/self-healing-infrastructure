@@ -9,9 +9,16 @@ app = Flask(__name__)
 @app.route("/", methods=["GET"])
 def home():
     return jsonify({
-        "message": "Self-Healing Infrastructure Webhook",
-        "status": "Running"
-    })
+        "application": "Self-Healing Infrastructure",
+        "service": "Webhook",
+        "status": "Running",
+        "version": "1.0.0",
+        "available_endpoints": [
+            "/",
+            "/health",
+            "/webhook"
+        ]
+    }), 200
 
 
 @app.route("/health", methods=["GET"])
@@ -27,9 +34,16 @@ def health():
 @app.route("/webhook", methods=["POST"])
 def webhook():
 
+    # Validate JSON request
+    if not request.is_json:
+        return jsonify({
+            "status": "failed",
+            "message": "Content-Type must be application/json"
+        }), 400
+
     data = request.get_json()
 
-    if not data:
+    if data is None:
         return jsonify({
             "status": "failed",
             "message": "No JSON payload received"
@@ -42,18 +56,14 @@ def webhook():
     print("=" * 70)
 
     try:
-
         result = subprocess.run(
-            [
-                "ansible-playbook",
-                "-i",
-                "ansible/inventory",
-                "ansible/restart-nginx.yml"
-            ],
+            ["bash", "scripts/webhook.sh"],
             capture_output=True,
             text=True,
             check=True
         )
+
+        print("✅ Recovery Playbook Executed Successfully")
 
         return jsonify({
             "status": "success",
@@ -63,6 +73,8 @@ def webhook():
 
     except subprocess.CalledProcessError as e:
 
+        print("❌ Recovery Playbook Failed")
+
         return jsonify({
             "status": "failed",
             "message": "Recovery playbook execution failed",
@@ -70,6 +82,8 @@ def webhook():
         }), 500
 
     except Exception as e:
+
+        print("❌ Unexpected Error:", str(e))
 
         return jsonify({
             "status": "error",
