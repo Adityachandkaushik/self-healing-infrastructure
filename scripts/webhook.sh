@@ -9,8 +9,8 @@ ansible-playbook \
 ansible/restart-nginx.yml
 
 if [ $? -eq 0 ]; then
-    echo "✅ Recovery completed successfully."
+    echo "Recovery completed successfully."
 else
-    echo "❌ Recovery failed."
+    echo "Recovery failed."
     exit 1
 fi
