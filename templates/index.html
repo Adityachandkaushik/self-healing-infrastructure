@@ -19,635 +19,754 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
 
 </head>
 
 <body>
 
-    <!-- ==========================
-            Sidebar
-    =========================== -->
+<!-- ======================================================
+Sidebar
+====================================================== -->
 
-    <div class="sidebar">
+<div class="sidebar">
 
-        <div class="logo">
+    <div class="logo">
 
-            <i class="fa-solid fa-server"></i>
+        <i class="fa-solid fa-server"></i>
 
-            <h3>DevOps Dashboard</h3>
-
-        </div>
-
-        <ul>
-
-            <li class="active">
-                <i class="fa-solid fa-chart-line"></i>
-                Dashboard
-            </li>
-
-            <li>
-                <i class="fa-solid fa-bell"></i>
-                Alerts
-            </li>
-
-            <li>
-                <i class="fa-solid fa-heart-pulse"></i>
-                Health
-            </li>
-
-            <li>
-                <i class="fa-solid fa-terminal"></i>
-                Logs
-            </li>
-
-            <li>
-                <i class="fa-solid fa-gears"></i>
-                Recovery
-            </li>
-
-            <li>
-                <i class="fa-solid fa-chart-simple"></i>
-                Metrics
-            </li>
-
-        </ul>
+        <h3>DevOps Dashboard</h3>
 
     </div>
 
-    <!-- ==========================
-            Main Content
-    =========================== -->
+    <ul>
 
-    <div class="main-content">
+        <li class="active">
 
-        <!-- Topbar -->
+            <i class="fa-solid fa-chart-line"></i>
 
-        <div class="topbar">
+            Dashboard
 
-            <h2>
+        </li>
 
-                Self Healing Infrastructure Dashboard
+        <li>
 
-            </h2>
+            <i class="fa-solid fa-bell"></i>
 
-            <div class="time">
+            Alerts
 
-                <span id="liveTime"></span>
+        </li>
 
-            </div>
+        <li>
 
-        </div>
+            <i class="fa-solid fa-heart-pulse"></i>
 
-        <!-- ==========================
-                Status Cards
-        =========================== -->
+            Health
 
-        <div class="row g-4">
+        </li>
 
-            <div class="col-md-4 col-lg-2">
+        <li>
 
-                <div class="status-card success">
+            <i class="fa-solid fa-terminal"></i>
 
-                    <i class="fa-solid fa-globe"></i>
+            Logs
 
-                    <h5>Webhook</h5>
+        </li>
 
-                    <p>Running</p>
+        <li>
 
-                </div>
+            <i class="fa-solid fa-gears"></i>
 
-            </div>
+            Recovery
 
-            <div class="col-md-4 col-lg-2">
+        </li>
 
-                <div class="status-card success">
+        <li>
 
-                    <i class="fa-solid fa-fire"></i>
+            <i class="fa-solid fa-chart-simple"></i>
 
-                    <h5>Prometheus</h5>
+            Metrics
 
-                    <p>Healthy</p>
+        </li>
 
-                </div>
+    </ul>
 
-            </div>
+</div>
 
-            <div class="col-md-4 col-lg-2">
+<!-- ======================================================
+Main Content
+====================================================== -->
 
-                <div class="status-card success">
+<div class="main-content">
 
-                    <i class="fa-solid fa-chart-area"></i>
+    <!-- Topbar -->
 
-                    <h5>Grafana</h5>
+    <div class="topbar">
 
-                    <p>Healthy</p>
+        <h2>
 
-                </div>
+            Self Healing Infrastructure Dashboard
 
-            </div>
+        </h2>
 
-            <div class="col-md-4 col-lg-2">
+        <div class="time">
 
-                <div class="status-card success">
-
-                    <i class="fa-solid fa-bell"></i>
-
-                    <h5>Alertmanager</h5>
-
-                    <p>Running</p>
-
-                </div>
-
-            </div>
-
-            <div class="col-md-4 col-lg-2">
-
-                <div class="status-card success">
-
-                    <i class="fa-solid fa-robot"></i>
-
-                    <h5>Ansible</h5>
-
-                    <p>Ready</p>
-
-                </div>
-
-            </div>
-
-            <div class="col-md-4 col-lg-2">
-
-                <div class="status-card success">
-
-                    <i class="fa-solid fa-microchip"></i>
-
-                    <h5>Node Exporter</h5>
-
-                    <p>Online</p>
-
-                </div>
-
-            </div>
+            <span id="liveTime"></span>
 
         </div>
 
-        <!-- ==========================
-                Charts
-        =========================== -->
+    </div>
 
-        <div class="row mt-4">
+<!-- ======================================================
+Live Status Cards
+====================================================== -->
 
-            <div class="col-lg-6 mb-4">
+<div class="row g-4">
 
-                <div class="card-box">
+    <div class="col-md-4 col-lg-2">
 
-                    <h4 class="card-title">
+        <div class="status-card success">
 
-                        <i class="fa-solid fa-microchip"></i>
+            <i class="fa-solid fa-globe"></i>
 
-                        CPU Usage
+            <h5>Webhook</h5>
 
-                    </h4>
+            <p id="webhookStatus">
 
-                    <div class="chart-container">
+                Running
 
-                        <canvas id="cpuChart"></canvas>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="col-lg-6 mb-4">
-
-                <div class="card-box">
-
-                    <h4 class="card-title">
-
-                        <i class="fa-solid fa-memory"></i>
-
-                        Memory Usage
-
-                    </h4>
-
-                    <div class="chart-container">
-
-                        <canvas id="memoryChart"></canvas>
-
-                    </div>
-
-                </div>
-
-            </div>
+            </p>
 
         </div>
 
-        <div class="row">
+    </div>
 
-            <div class="col-lg-6 mb-4">
+    <div class="col-md-4 col-lg-2">
 
-                <div class="card-box">
+        <div class="status-card success">
 
-                    <h4 class="card-title">
+            <i class="fa-solid fa-fire"></i>
 
-                        <i class="fa-solid fa-hard-drive"></i>
+            <h5>Prometheus</h5>
 
-                        Disk Usage
+            <p id="prometheusStatus">
 
-                    </h4>
+                Loading...
 
-                    <div class="chart-container">
-
-                        <canvas id="diskChart"></canvas>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="col-lg-6 mb-4">
-
-                <div class="card-box">
-
-                    <h4 class="card-title">
-
-                        <i class="fa-solid fa-network-wired"></i>
-
-                        Network Traffic
-
-                    </h4>
-
-                    <div class="chart-container">
-
-                        <canvas id="networkChart"></canvas>
-
-                    </div>
-
-                </div>
-
-            </div>
+            </p>
 
         </div>
 
-        <!-- PART 2 STARTS FROM HERE -->
-                 <!-- ==========================
-                Alerts & Recovery
-        =========================== -->
+    </div>
 
-        <div class="row">
+    <div class="col-md-4 col-lg-2">
 
-            <!-- Recent Alerts -->
+        <div class="status-card success">
 
-            <div class="col-lg-6 mb-4">
+            <i class="fa-solid fa-chart-area"></i>
 
-                <div class="card-box">
+            <h5>Grafana</h5>
 
-                    <h4 class="card-title">
+            <p id="grafanaStatus">
 
-                        <i class="fa-solid fa-triangle-exclamation text-danger"></i>
+                Running
 
-                        Recent Alerts
-
-                    </h4>
-
-                    <div class="table-responsive">
-
-                        <table class="table table-dark table-hover align-middle">
-
-                            <thead>
-
-                                <tr>
-
-                                    <th>Time</th>
-                                    <th>Alert</th>
-                                    <th>Status</th>
-
-                                </tr>
-
-                            </thead>
-
-                            <tbody>
-
-                                <tr>
-
-                                    <td>10:15 AM</td>
-
-                                    <td>CPU Usage High</td>
-
-                                    <td>
-
-                                        <span class="badge bg-danger">
-
-                                            Active
-
-                                        </span>
-
-                                    </td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td>10:12 AM</td>
-
-                                    <td>Memory Usage High</td>
-
-                                    <td>
-
-                                        <span class="badge bg-warning text-dark">
-
-                                            Warning
-
-                                        </span>
-
-                                    </td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td>09:58 AM</td>
-
-                                    <td>Disk Space Low</td>
-
-                                    <td>
-
-                                        <span class="badge bg-success">
-
-                                            Resolved
-
-                                        </span>
-
-                                    </td>
-
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- Recovery History -->
-
-            <div class="col-lg-6 mb-4">
-
-                <div class="card-box">
-
-                    <h4 class="card-title">
-
-                        <i class="fa-solid fa-robot text-success"></i>
-
-                        Recovery History
-
-                    </h4>
-
-                    <div class="table-responsive">
-
-                        <table class="table table-dark table-hover align-middle">
-
-                            <thead>
-
-                                <tr>
-
-                                    <th>Playbook</th>
-                                    <th>Service</th>
-                                    <th>Result</th>
-
-                                </tr>
-
-                            </thead>
-
-                            <tbody>
-
-                                <tr>
-
-                                    <td>restart_nginx.yml</td>
-
-                                    <td>Nginx</td>
-
-                                    <td>
-
-                                        <span class="badge bg-success">
-
-                                            Success
-
-                                        </span>
-
-                                    </td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td>restart_node.yml</td>
-
-                                    <td>Backend</td>
-
-                                    <td>
-
-                                        <span class="badge bg-success">
-
-                                            Success
-
-                                        </span>
-
-                                    </td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td>cleanup_disk.yml</td>
-
-                                    <td>Server</td>
-
-                                    <td>
-
-                                        <span class="badge bg-warning text-dark">
-
-                                            Running
-
-                                        </span>
-
-                                    </td>
-
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
-                </div>
-
-            </div>
+            </p>
 
         </div>
 
+    </div>
 
-        <!-- ==========================
-                Live Logs
-        =========================== -->
+    <div class="col-md-4 col-lg-2">
 
-        <div class="card-box mb-4">
+        <div class="status-card success">
+
+            <i class="fa-solid fa-bell"></i>
+
+            <h5>Alertmanager</h5>
+
+            <p id="alertmanagerStatus">
+
+                Loading...
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4 col-lg-2">
+
+        <div class="status-card success">
+
+            <i class="fa-solid fa-robot"></i>
+
+            <h5>Ansible</h5>
+
+            <p id="ansibleStatus">
+
+                Ready
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4 col-lg-2">
+
+        <div class="status-card success">
+
+            <i class="fa-solid fa-microchip"></i>
+
+            <h5>Node Exporter</h5>
+
+            <p id="nodeExporterStatus">
+
+                Online
+
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ======================================================
+Charts Section
+====================================================== -->
+
+<div class="row mt-4">
+
+    <!-- CPU -->
+
+    <div class="col-lg-6 mb-4">
+
+        <div class="card-box">
 
             <h4 class="card-title">
 
-                <i class="fa-solid fa-terminal"></i>
+                <i class="fa-solid fa-microchip"></i>
 
-                Live System Logs
+                CPU Usage
+
+                <span
+                    id="cpuValue"
+                    class="float-end badge bg-primary">
+
+                    0%
+
+                </span>
 
             </h4>
 
-            <div class="logs">
+            <div class="chart-container">
 
-                {% if logs %}
-
-                    {% for log in logs %}
-
-                        <div class="log-line">
-
-                            {{ log }}
-
-                        </div>
-
-                    {% endfor %}
-
-                {% else %}
-
-                    <div class="log-line">
-
-                        Waiting for incoming logs...
-
-                    </div>
-
-                {% endif %}
+                <canvas id="cpuChart"></canvas>
 
             </div>
 
         </div>
-
-        <!-- ==========================
-                Infrastructure Overview
-        =========================== -->
-
-        <div class="row">
-
-            <div class="col-md-3 mb-4">
-
-                <div class="status-card info">
-
-                    <i class="fa-brands fa-docker"></i>
-
-                    <h5>Docker</h5>
-
-                    <p>6 Containers Running</p>
-
-                </div>
-
-            </div>
-
-            <div class="col-md-3 mb-4">
-
-                <div class="status-card info">
-
-                    <i class="fa-solid fa-database"></i>
-
-                    <h5>Prometheus</h5>
-
-                    <p>Targets: 5/5</p>
-
-                </div>
-
-            </div>
-
-            <div class="col-md-3 mb-4">
-
-                <div class="status-card info">
-
-                    <i class="fa-solid fa-gauge-high"></i>
-
-                    <h5>CPU Avg</h5>
-
-                    <p>42%</p>
-
-                </div>
-
-            </div>
-
-            <div class="col-md-3 mb-4">
-
-                <div class="status-card info">
-
-                    <i class="fa-solid fa-memory"></i>
-
-                    <h5>Memory Avg</h5>
-
-                    <p>58%</p>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <!-- PART 3 STARTS FROM HERE -->
-                 <!-- ==========================
-                Footer
-        =========================== -->
-
-        <footer class="footer mt-4">
-
-            <div class="row align-items-center">
-
-                <div class="col-md-6">
-
-                    <p class="mb-0">
-
-                        © 2026 Self Healing Infrastructure Dashboard
-
-                    </p>
-
-                </div>
-
-                <div class="col-md-6 text-md-end">
-
-                    <span class="badge bg-success">
-
-                        System Status : ONLINE
-
-                    </span>
-
-                </div>
-
-            </div>
-
-        </footer>
 
     </div>
-    <!-- End Main Content -->
+
+    <!-- Memory -->
+
+    <div class="col-lg-6 mb-4">
+
+        <div class="card-box">
+
+            <h4 class="card-title">
+
+                <i class="fa-solid fa-memory"></i>
+
+                Memory Usage
+
+                <span
+                    id="memoryValue"
+                    class="float-end badge bg-success">
+
+                    0%
+
+                </span>
+
+            </h4>
+
+            <div class="chart-container">
+
+                <canvas id="memoryChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="row">
+
+    <!-- Disk -->
+
+    <div class="col-lg-6 mb-4">
+
+        <div class="card-box">
+
+            <h4 class="card-title">
+
+                <i class="fa-solid fa-hard-drive"></i>
+
+                Disk Usage
+
+                <span
+                    id="diskValue"
+                    class="float-end badge bg-warning text-dark">
+
+                    0%
+
+                </span>
+
+            </h4>
+
+            <div class="chart-container">
+
+                <canvas id="diskChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Network -->
+
+    <div class="col-lg-6 mb-4">
+
+        <div class="card-box">
+
+            <h4 class="card-title">
+
+                <i class="fa-solid fa-network-wired"></i>
+
+                Network Traffic
+
+            </h4>
+
+            <div class="chart-container">
+
+                <canvas id="networkChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ======================================================
+Live Metrics Cards
+====================================================== -->
+
+<div class="row">
+
+    <div class="col-md-4 mb-4">
+
+        <div class="status-card info">
+
+            <i class="fa-solid fa-gauge-high"></i>
+
+            <h5>CPU Average</h5>
+
+            <p id="cpuAvg">
+
+                0%
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4 mb-4">
+
+        <div class="status-card info">
+
+            <i class="fa-solid fa-memory"></i>
+
+            <h5>Memory Average</h5>
+
+            <p id="memoryAvg">
+
+                0%
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4 mb-4">
+
+        <div class="status-card info">
+
+            <i class="fa-solid fa-hard-drive"></i>
+
+            <h5>Disk Usage</h5>
+
+            <p id="diskAvg">
+
+                0%
+
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ======================================================
+Alerts & Recovery
+====================================================== -->
+
+<div class="row">
+
+    <!-- Recent Alerts -->
+
+    <div class="col-lg-6 mb-4">
+
+        <div class="card-box">
+
+            <h4 class="card-title">
+
+                <i class="fa-solid fa-triangle-exclamation text-danger"></i>
+
+                Recent Alerts
+
+                <span id="alertCount"
+                      class="badge bg-danger float-end">
+
+                    0
+
+                </span>
+
+            </h4>
+
+            <div class="table-responsive">
+
+                <table class="table table-dark table-hover align-middle">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Alert Name</th>
+                            <th>Severity</th>
+                            <th>Status</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="alertsTable">
+
+                        <tr>
+
+                            <td colspan="3"
+                                class="text-center">
+
+                                No Active Alerts
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Recovery History -->
+
+    <div class="col-lg-6 mb-4">
+
+        <div class="card-box">
+
+            <h4 class="card-title">
+
+                <i class="fa-solid fa-robot text-success"></i>
+
+                Recovery History
+
+            </h4>
+
+            <div class="table-responsive">
+
+                <table class="table table-dark table-hover align-middle">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Time</th>
+                            <th>Alert</th>
+                            <th>Status</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="historyTable">
+
+                        <tr>
+
+                            <td colspan="3"
+                                class="text-center">
+
+                                No Recovery History
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ======================================================
+Live System Logs
+====================================================== -->
+
+<div class="card-box mb-4">
+
+    <h4 class="card-title">
+
+        <i class="fa-solid fa-terminal"></i>
+
+        Live System Logs
+
+    </h4>
+
+    <div id="logsContainer"
+         class="logs">
+
+        <div class="log-line">
+
+            Waiting for incoming logs...
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ======================================================
+API Status
+====================================================== -->
+
+<div class="row">
+
+    <div class="col-md-4 mb-4">
+
+        <div class="status-card info">
+
+            <i class="fa-solid fa-clock"></i>
+
+            <h5>Last Updated</h5>
+
+            <p id="lastUpdated">
+
+                --
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4 mb-4">
+
+        <div class="status-card info">
+
+            <i class="fa-solid fa-bell"></i>
+
+            <h5>Active Alerts</h5>
+
+            <p id="activeAlerts">
+
+                0
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4 mb-4">
+
+        <div class="status-card info">
+
+            <i class="fa-solid fa-heart-circle-check"></i>
+
+            <h5>System Status</h5>
+
+            <p id="systemHealth">
+
+                Healthy
+
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+  <!-- ======================================================
+Infrastructure Overview
+====================================================== -->
+
+<div class="row">
+
+    <div class="col-md-3 mb-4">
+
+        <div class="status-card info">
+
+            <i class="fa-brands fa-docker"></i>
+
+            <h5>Docker</h5>
+
+            <p id="dockerStatus">
+
+                Running
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3 mb-4">
+
+        <div class="status-card info">
+
+            <i class="fa-solid fa-database"></i>
+
+            <h5>Prometheus</h5>
+
+            <p id="targetStatus">
+
+                Loading...
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3 mb-4">
+
+        <div class="status-card info">
+
+            <i class="fa-solid fa-gauge-high"></i>
+
+            <h5>CPU Avg</h5>
+
+            <p id="cpuOverview">
+
+                0%
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3 mb-4">
+
+        <div class="status-card info">
+
+            <i class="fa-solid fa-memory"></i>
+
+            <h5>Memory Avg</h5>
+
+            <p id="memoryOverview">
+
+                0%
+
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ======================================================
+Footer
+====================================================== -->
+
+<footer class="footer mt-4">
+
+    <div class="row align-items-center">
+
+        <div class="col-md-6">
+
+            <p class="mb-0">
+
+                © 2026 Self Healing Infrastructure Dashboard
+
+            </p>
+
+        </div>
+
+        <div class="col-md-6 text-md-end">
+
+            <span
+                id="footerStatus"
+                class="badge bg-success">
+
+                ONLINE
+
+            </span>
+
+        </div>
+
+    </div>
+
+</footer>
+
+</div>
+<!-- End Main Content -->
 
 
-    <!-- ==========================
-            Bootstrap JS
-    =========================== -->
+<!-- ======================================================
+Bootstrap
+====================================================== -->
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+<!-- ======================================================
+Dashboard JS
+====================================================== -->
 
-    <!-- ==========================
-            Dashboard JS
-    =========================== -->
-
-    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
 
 </body>
 
