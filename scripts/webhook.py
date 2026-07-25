@@ -387,4 +387,8 @@ if __name__ == "__main__":
         host="0.0.0.0",
         port=5001,
         debug=True
+
+        except Exception as e:
+    app.logger.error(f"Webhook processing failed: {e}")
+    return jsonify({"status": "error", "message": str(e)}), 500
     )
