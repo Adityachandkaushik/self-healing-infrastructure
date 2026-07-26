@@ -381,25 +381,12 @@ if __name__ == "__main__":
     logger.info(f"Prometheus    : {PROMETHEUS_URL}")
     logger.info(f"Alertmanager  : {ALERTMANAGER_URL}")
     logger.info(f"Recovery Log  : {RECOVERY_LOG}")
+    logger.info("Webhook service is ready to receive Alertmanager events.")
+    logger.info("Health endpoint available at http://0.0.0.0:5001/health")
     logger.info("=" * 60)
-
-    logger.info("=" * 60)
-logger.info("Starting Flask server on http://0.0.0.0:5001")
-logger.info("Webhook listener is ready to receive alerts.")
-logger.info("=" * 60)
-
-app.run(
-    host="0.0.0.0",
-    port=5001,
-    debug=True
-)
 
     app.run(
         host="0.0.0.0",
         port=5001,
         debug=True
-
-        except Exception as e:
-    app.logger.error(f"Webhook processing failed: {e}")
-    return jsonify({"status": "error", "message": str(e)}), 500
     )
