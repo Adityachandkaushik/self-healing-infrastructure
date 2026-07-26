@@ -373,7 +373,7 @@ def webhook():
         # ==========================================================
 # Application Entry Point
 # ==========================================================
-
+  
 if __name__ == "__main__":
 
     logger.info("=" * 60)
@@ -382,6 +382,17 @@ if __name__ == "__main__":
     logger.info(f"Alertmanager  : {ALERTMANAGER_URL}")
     logger.info(f"Recovery Log  : {RECOVERY_LOG}")
     logger.info("=" * 60)
+
+    logger.info("=" * 60)
+logger.info("Starting Flask server on http://0.0.0.0:5001")
+logger.info("Webhook listener is ready to receive alerts.")
+logger.info("=" * 60)
+
+app.run(
+    host="0.0.0.0",
+    port=5001,
+    debug=True
+)
 
     app.run(
         host="0.0.0.0",
