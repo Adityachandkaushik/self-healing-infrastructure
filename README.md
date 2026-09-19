@@ -10,7 +10,7 @@ This project demonstrates a self-healing infrastructure using Docker, Prometheus
 - Prometheus
 - Alertmanager
 - Ansible
-- Nginx
+- Nginx  
 - Node Exporter
 
 ## Project Status
